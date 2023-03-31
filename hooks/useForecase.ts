@@ -15,26 +15,25 @@ type TResponse = {
   };
 };
 
+const baseUrl = "http://api.weatherapi.com/v1/forecast.json";
+const key = "7aacb96ac9124b899e651012233003";
+
 const useForecast = (query: string) => {
-  const [forecast, setForecast] = useState<TResponse>();
+  const [data, setData] = useState<TResponse>();
 
   useEffect(() => {
     fetchForecast();
   }, [query]);
 
   const fetchForecast = async () => {
-    const key = "7aacb96ac9124b899e651012233003";
+    const response = await fetch(`${baseUrl}?key=${key}&q=${query}`);
 
-    const response = await fetch(
-      `http://api.weatherapi.com/v1/forecast.json?key=${key}&q=${query}`
-    );
+    const json = await response.json();
 
-    const data = await response.json();
-
-    setForecast(data);
+    setData(json);
   };
 
-  return forecast;
+  return data;
 };
 
 export default useForecast;

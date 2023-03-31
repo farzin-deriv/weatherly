@@ -1,44 +1,59 @@
-import { useEffect, useState } from "react";
-import { View, Text, Image } from "react-native";
-import useLocation from "../hooks/useLocation";
-import useForecast from "../hooks/useForecase";
+import { View, Text, Image, StyleSheet } from "react-native";
+import useCurrentLocationForecast from "../hooks/useCurrentLocationForecast";
 
 const Home = () => {
-  const location = useLocation();
-  const query = location
-    ? `${location.coords.latitude},${location.coords.longitude}`
-    : "london";
-  const forecast = useForecast(query);
+  const forecast = useCurrentLocationForecast();
 
-  if (!forecast) return <Text>Loading...</Text>;
+  if (!forecast)
+    return (
+      <View style={styles.container}>
+        <Text style={styles.status}>Loading...</Text>
+      </View>
+    );
 
   return (
-    <View
-      style={{
-        backgroundColor: "#1abc9c",
-        display: "flex",
-        flex: 1,
-        width: "100%",
-        height: "100%",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text style={{ color: "#ecf0f1", fontSize: 30, fontWeight: "bold" }}>
-        {forecast.location.name}
-      </Text>
-      <Text style={{ color: "#ecf0f170", fontSize: 18 }}>
-        {forecast.current.condition.text}
-      </Text>
-      <Text style={{ color: "#ecf0f1", fontSize: 30, fontWeight: "bold" }}>
-        {forecast.current.temp_c}°
-      </Text>
+    <View style={styles.container}>
+      <Text style={styles.city}>{forecast.location.name}</Text>
+      <Text style={styles.status}>{forecast.current.condition.text}</Text>
+      <Text style={styles.degree}>{forecast.current.temp_c}°</Text>
       <Image
         source={{ uri: "http:" + forecast.current.condition.icon }}
-        style={{ width: 100, height: 100 }}
+        style={styles.icon}
       />
     </View>
   );
 };
 
 export default Home;
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#1abc9c",
+    display: "flex",
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  city: {
+    color: "#ecf0f1",
+    fontSize: 30,
+    fontWeight: "bold",
+    marginBottom: 5,
+  },
+  status: {
+    color: "#ecf0f170",
+    fontSize: 16,
+    marginBottom: 20,
+  },
+  degree: {
+    color: "#ecf0f1",
+    fontSize: 40,
+    fontWeight: "bold",
+  },
+  icon: {
+    width: 100,
+    height: 100,
+  },
+});

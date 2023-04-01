@@ -1,30 +1,17 @@
-import { useEffect, useState } from "react";
-import * as Location from "expo-location";
+import {
+  LocationObject,
+  getCurrentPositionAsync,
+  requestForegroundPermissionsAsync,
+} from "expo-location";
+import { useQuery } from "react-query";
 
-type TLocation = Awaited<ReturnType<typeof Location.getCurrentPositionAsync>>;
+const useLocation = () =>
+  useQuery<LocationObject>(["location"], async () => {
+    const { status } = await requestForegroundPermissionsAsync();
 
-const useLocation = () => {
-  const [data, setData] = useState<TLocation>();
+    if (status === "granted") return getCurrentPositionAsync({});
 
-  useEffect(() => {
-    const hasPermissions = async () => {
-      const { status } = await Location.getForegroundPermissionsAsync();
-
-      return status === "granted";
-    };
-
-    const getLocation = async () => {
-      if (await hasPermissions()) {
-        const location = await Location.getCurrentPositionAsync({});
-
-        setData(location);
-      }
-    };
-
-    getLocation();
-  }, []);
-
-  return data;
-};
+    throw new Error("Location permission not granted");
+  });
 
 export default useLocation;

@@ -1,15 +1,15 @@
 import { View, StyleSheet } from "react-native";
-import { CurrentLocationForecastCard } from "../components";
+import { LocationForecastCard } from "../components";
 
-const Home: React.FC = () => {
+const Favorites: React.FC = () => {
   return (
     <View style={styles.container}>
-      <CurrentLocationForecastCard />
+      <LocationForecastCard location="london" />
     </View>
   );
 };
 
-export default Home;
+export default Favorites;
 
 const styles = StyleSheet.create({
   container: {

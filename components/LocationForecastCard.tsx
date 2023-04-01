@@ -21,7 +21,7 @@ const LocationForecastCard: React.FC<TProps> = ({ location }) => {
       <Text style={styles.status}>{data.current.condition.text}</Text>
       <Text style={styles.degree}>{data.current.temp_c}°</Text>
       <Image
-        source={{ uri: "http:" + data.current.condition.icon }}
+        source={{ uri: "https:" + data.current.condition.icon }}
         style={styles.icon}
       />
     </View>

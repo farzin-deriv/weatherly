@@ -8,7 +8,7 @@ type TProps = {
   size?: number;
 };
 
-const DegreeWithIcon: React.FC<TProps> = ({ degree, icon, size = 250 }) => (
+const DegreeWithIcon: React.FC<TProps> = ({ degree, icon, size = 230 }) => (
   <>
     <Degree value={degree} size={size / 1.38} />
     <View style={{ marginTop: -(size / 2.6) }}>

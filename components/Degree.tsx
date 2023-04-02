@@ -21,7 +21,7 @@ const Degree: React.FC<TProps> = ({ value, size = 180 }) => {
         },
       ]}
     >
-      {value}
+      {Math.round(value)}
       <Text
         style={[
           {

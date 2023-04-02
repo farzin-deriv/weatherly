@@ -1,4 +1,4 @@
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, Platform } from "react-native";
 import { usePathname, Link } from "expo-router";
 import { useScreenSize } from "../hooks";
 
@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    top: "unset",
-    height: "unset",
+    top: Platform.OS === "web" ? "unset" : null,
+    height: Platform.OS === "web" ? "unset" : null,
   },
   icon: {
     width: 24,

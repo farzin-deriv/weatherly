@@ -4,7 +4,7 @@ import { LocationForecastCard } from "../components";
 const Favorites: React.FC = () => {
   return (
     <View style={styles.container}>
-      <LocationForecastCard location="london" />
+      <LocationForecastCard location="bandar-e anzali" />
     </View>
   );
 };

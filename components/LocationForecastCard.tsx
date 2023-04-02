@@ -1,11 +1,14 @@
-import { View, Text, Image, StyleSheet } from "react-native";
-import { useForecast } from "../hooks";
+import { View, Text, StyleSheet } from "react-native";
+import { useForecast, useScreenSize } from "../hooks";
+import DegreeWithIcon from "./DegreeWithIcon";
+import HourlyForecastListCard from "./HourlyForecastListCard";
 
 type TProps = {
   location: string;
 };
 
 const LocationForecastCard: React.FC<TProps> = ({ location }) => {
+  const { isMobile } = useScreenSize();
   const { data, isSuccess } = useForecast(location);
 
   if (!isSuccess)
@@ -16,14 +19,32 @@ const LocationForecastCard: React.FC<TProps> = ({ location }) => {
     );
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.city}>{data.location.name}</Text>
-      <Text style={styles.status}>{data.current.condition.text}</Text>
-      <Text style={styles.degree}>{data.current.temp_c}°</Text>
-      <Image
-        source={{ uri: "https:" + data.current.condition.icon }}
-        style={styles.icon}
-      />
+    <View style={[styles.container, isMobile && { paddingBottom: 130 }]}>
+      <View
+        style={{
+          flex: 1,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Text style={styles.city}>{data.location.name}</Text>
+        <Text style={styles.status}>{data.current.condition.text}</Text>
+      </View>
+      <View
+        style={{
+          flex: 2,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <DegreeWithIcon
+          degree={data.current.temp_c}
+          icon={data.current.condition.icon}
+        />
+      </View>
+      <HourlyForecastListCard data={data.forecast.forecastday[0].hour} />
     </View>
   );
 };
@@ -32,6 +53,7 @@ export default LocationForecastCard;
 
 const styles = StyleSheet.create({
   container: {
+    height: "95%",
     display: "flex",
     paddingVertical: 20,
     paddingHorizontal: 40,
@@ -41,22 +63,14 @@ const styles = StyleSheet.create({
   },
   city: {
     color: "#F0EFF2",
-    fontSize: 30,
-    fontWeight: "bold",
+    fontSize: 50,
     marginBottom: 5,
+    fontFamily: "UbuntuMono_700Bold",
   },
   status: {
     color: "#ffffff90",
-    fontSize: 16,
+    fontSize: 30,
     marginBottom: 20,
-  },
-  degree: {
-    color: "#F0EFF2",
-    fontSize: 40,
-    fontWeight: "bold",
-  },
-  icon: {
-    width: 100,
-    height: 100,
+    fontFamily: "UbuntuMono_400Regular",
   },
 });

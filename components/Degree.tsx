@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     color: "#F0EFF2",
-    fontFamily: "UbuntuMono_700Bold",
+    fontFamily: "Questrial_400Regular",
+    fontWeight: "bold",
   },
 });

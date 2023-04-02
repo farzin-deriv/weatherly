@@ -1,19 +1,14 @@
 import { Slot } from "expo-router";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { NavigationBar } from "../components";
-import {
-  useFonts,
-  UbuntuMono_400Regular,
-  UbuntuMono_700Bold,
-} from "@expo-google-fonts/ubuntu-mono";
+import { useFonts, Questrial_400Regular } from "@expo-google-fonts/questrial";
 import { StyleSheet, View } from "react-native";
 
 const queryClient = new QueryClient();
 
 const AppLayout: React.FC = () => {
   const [isFontLoaded] = useFonts({
-    UbuntuMono_400Regular,
-    UbuntuMono_700Bold,
+    Questrial_400Regular,
   });
 
   return (

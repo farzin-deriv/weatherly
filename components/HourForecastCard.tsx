@@ -35,6 +35,6 @@ const styles = StyleSheet.create({
     color: "#ffffff90",
     fontSize: 16,
     marginVertical: 10,
-    fontFamily: "UbuntuMono_400Regular",
+    fontFamily: "Questrial_400Regular",
   },
 });

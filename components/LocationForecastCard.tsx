@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import { useForecast, useScreenSize } from "../hooks";
 import DegreeWithIcon from "./DegreeWithIcon";
 import HourlyForecastListCard from "./HourlyForecastListCard";
@@ -11,12 +11,7 @@ const LocationForecastCard: React.FC<TProps> = ({ location }) => {
   const { isMobile } = useScreenSize();
   const { data, isSuccess } = useForecast(location);
 
-  if (!isSuccess)
-    return (
-      <View style={styles.container}>
-        <Text style={styles.status}>Loading...</Text>
-      </View>
-    );
+  if (!isSuccess) return <ActivityIndicator color={"#F0EFF2"} />;
 
   return (
     <View style={[styles.container, isMobile && { paddingBottom: 130 }]}>
@@ -65,12 +60,13 @@ const styles = StyleSheet.create({
     color: "#F0EFF2",
     fontSize: 50,
     marginBottom: 5,
-    fontFamily: "UbuntuMono_700Bold",
+    fontFamily: "Questrial_400Regular",
+    fontWeight: "bold",
   },
   status: {
     color: "#ffffff90",
     fontSize: 30,
     marginBottom: 20,
-    fontFamily: "UbuntuMono_400Regular",
+    fontFamily: "Questrial_400Regular",
   },
 });
